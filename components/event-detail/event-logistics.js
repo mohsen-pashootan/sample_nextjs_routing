@@ -5,9 +5,7 @@ import classes from "./event-logistics.module.css";
 
 function EventLogistics(props) {
   const { date, address, image, imageAlt } = props;
-  console.log("@address", address);
-  console.log("@date", date);
-  console.log("@props@@@@@@@@@@@@@@", props);
+
   const humanReadableDate = new Date(date).toLocaleDateString("en-US", {
     day: "numeric",
     month: "long",

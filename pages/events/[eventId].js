@@ -1,5 +1,5 @@
 import EventLogistics from "../../components/event-detail/event-logistics";
-import EventContent from "../../components/event-detail/event-logistics";
+import EventContent from "./../../components/event-detail/event-content";
 import ErrorAlert from "../../components/ui/error-alert";
 import { getEventById, getFeaturedEvents } from "../../helpers/api-util";
 import { Fragment } from "react";
@@ -7,7 +7,7 @@ import EventSummary from "./../../components/event-detail/event-summary";
 
 function EventDetailPage(props) {
   const event = props.selectedEvent;
-  console.log("@event222222222222222", event.location);
+
   if (!event) {
     return (
       <ErrorAlert>
@@ -37,7 +37,7 @@ export async function getStaticProps(context) {
 
   return {
     props: {
-      selectedEvent: event,
+      selectedEvent: event ? event : null,
     },
     revalidate: 30, ///
   };
@@ -49,7 +49,9 @@ export async function getStaticPaths() {
 
   return {
     paths: paths,
-    fallback: "blocking",
+    fallback: "blocking", // if =false => means that we pass all values and accept all pre-generated - any other values face with 404
+    //  if = true => means that there may some values in the future that is not pre-generated
+    //   if ="blocking" => means only some values is accept
   };
 }
 
