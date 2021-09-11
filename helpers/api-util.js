@@ -25,7 +25,6 @@ export async function getEventById(id) {
   return allEvents.find((event) => event.id === id);
 }
 
-
 export async function getFilteredEvents(dateFilter) {
   const { year, month } = dateFilter;
   const allEvents = await getAllEvents();
@@ -38,3 +37,9 @@ export async function getFilteredEvents(dateFilter) {
 
   return filteredEvents;
 }
+
+export const emailChars = (str) => {
+  return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+    str
+  );
+};
