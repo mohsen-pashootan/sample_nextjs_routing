@@ -1,18 +1,5 @@
 import { emailChars } from "./../../helpers/api-util";
-import { MongoClient } from "mongodb";
-
-async function connectDatabase() {
-  const client = await MongoClient.connect(
-    "mongodb+srv://pashootan:<password>@cluster0.9lsnp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-    { useUnifiedTopology: true }
-  );
-  return client;
-}
-
-async function insertDocument(client, document) {
-  const db = client.db();
-  await db.collection("newsletter").insertOne(document);
-}
+import { connectDatabase, insertDocument } from "../../helpers/db-utils";
 
 async function handler(req, res) {
   if (req.method === "POST") {
@@ -32,7 +19,7 @@ async function handler(req, res) {
     }
 
     try {
-      await insertDocument(client, { email: userEmail });
+      await insertDocument(client, "newsletter", { email: userEmail });
       client.close();
     } catch (error) {
       res.status(500).json({ message: "inserting data failed!" });
